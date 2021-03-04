@@ -19,5 +19,5 @@ app.post('/upload', (req , res) => {
   res.json({ message: 'j' });
 });
 
-app.listen(port, '0.0.0.0',  () => console.log('listening on port ' + port));
+app.listen(Number(port), '0.0.0.0',  () => console.log('listening on port ' + port));
 
