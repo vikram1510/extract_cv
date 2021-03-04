@@ -5,17 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc --watch",
+    "dev": "nodemon src/server.ts",
     "build": "tsc"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^4.17.11",
     "@types/node": "^14.14.31",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
     "typescript": "^4.2.2"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "csv-writer": "^1.6.0",
+    "express": "^4.17.1",
     "googleapis": "^67.1.1",
     "node-html-parser": "^3.0.3"
   }
