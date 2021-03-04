@@ -2,7 +2,7 @@ import express from 'express';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';
 
-const port = 8081;
+const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors());
