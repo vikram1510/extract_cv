@@ -1,0 +1,17 @@
+version: 0.2
+phases:
+    install:
+        commands:
+            - 'npm install'
+    build:
+        commands:
+            - echo 'Building...'
+            - 'npm run build'
+            - echo 'Building complete'
+artifacts:
+    type: zip
+    files:
+        - package.json
+        - package-lock.json
+        - 'build/**/*'
+        - README.md
