@@ -2,6 +2,7 @@ import express from 'express';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';
 
+const port = 8081;
 const app = express();
 
 app.use(cors());
@@ -18,5 +19,5 @@ app.post('/upload', (req , res) => {
   res.json({ message: 'j' });
 });
 
-app.listen(8080, '0.0.0.0',  () => console.log('listening on port 8080'));
+app.listen(port, '0.0.0.0',  () => console.log('listening on port ' + port));
 
