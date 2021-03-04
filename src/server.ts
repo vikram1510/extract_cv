@@ -10,7 +10,7 @@ app.use(cors());
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
 
 app.get('/', (req, res) => {
-  res.json({ message: 'k' });
+  res.json({ message: 'i' });
 });
 
 app.post('/upload', (req , res) => {
