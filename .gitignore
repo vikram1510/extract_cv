@@ -2,3 +2,4 @@ samples/**
 *.csv
 build/**
 credentials.json
+client/node_modules
