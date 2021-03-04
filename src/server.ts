@@ -18,5 +18,5 @@ app.post('/upload', (req , res) => {
   res.json({ message: 'j' });
 });
 
-app.listen(4000, '0.0.0.0',  () => console.log('listening'));
+app.listen(8080, '0.0.0.0',  () => console.log('listening on port 8080'));
 
