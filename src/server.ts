@@ -13,7 +13,7 @@ const s3BucketUrl = 'https://extracted-cv-csv-files.s3.eu-west-2.amazonaws.com';
 const port = process.env.PORT || 4000;
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
 
