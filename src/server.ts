@@ -13,7 +13,7 @@ const s3BucketUrl = 'https://extracted-cv-csv-files.s3.eu-west-2.amazonaws.com';
 const port = process.env.PORT || 4000;
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
 
@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/upload', asyncHandler(async (req , res) => {
+  console.log(req.headers);
 
   if (!req.files){
     throw new Error('No files found');
