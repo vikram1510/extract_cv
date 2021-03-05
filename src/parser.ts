@@ -3,17 +3,11 @@ import * as path from 'path';
 import { createObjectCsvWriter } from 'csv-writer';
 import { parse } from 'node-html-parser';
 import { findGCSEs, findSection } from './util/parse';
+import { UploadedFile } from 'express-fileupload';
 
-if (process.argv.length < 4){
-  throw Error('Expected 2 arguments [INPUTPATH] [OUTPUT_CSV_FILENAME]');
-}
 
-export type Details = NonNullable<ReturnType<typeof parseHtmlFile>>
-
-const [,,inputPath, outputFile] = process.argv;
-
-const csvWriter = createObjectCsvWriter({
-  path: outputFile,
+export const csvWriter = createObjectCsvWriter({
+  path: 'output.csv',
   header: [
       { id: 'name', title: 'NAME' },
       { id: 'address', title: 'ADDRESS' },
@@ -25,29 +19,9 @@ const csvWriter = createObjectCsvWriter({
   ]
 });
 
-async function main(){
+export function parseHtmlFile(file: UploadedFile, pathName: string) {
 
-  if (!fs.statSync(inputPath).isDirectory()){
-    const data = parseHtmlFile(inputPath);
-    if (data) await csvWriter.writeRecords([data]);
-  } else {
-    const files = fs.readdirSync(inputPath);
-    const filePaths = files.map(fileName => path.join(inputPath, fileName));
-    const containsData = (data?: Details): data is Details => !!data;
-    const data = filePaths.map(path => parseHtmlFile(path)).filter(containsData);
-    await csvWriter.writeRecords(data);
-  }
-}
-
-function parseHtmlFile(pathName: string) {
-  if (!pathName.endsWith('.html')){
-    console.log(`Ignoring ${pathName} - Not html`);
-    return;
-  }
-
-  console.log(`Reading file '${pathName}'...`);
-
-  const rawHtml = fs.readFileSync(pathName, 'utf-8').split(/<\s*hr\s*\/\s*>/);
+  const rawHtml = file.data.toString().split(/<\s*hr\s*\/\s*>/);
 
   const aboutYouRaw = findSection(rawHtml, 'About you');
 
@@ -77,7 +51,3 @@ function parseHtmlFile(pathName: string) {
     path: pathName
   };
 }
-
-main()
-  .then(() => console.log('Finished!'))
-  .catch(console.log);
