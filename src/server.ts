@@ -18,11 +18,10 @@ app.use(cors());
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
 
 app.get('/', (req, res) => {
-  res.json({ message: 'i' });
+  res.json({ message: 'k' });
 });
 
 app.post('/upload', asyncHandler(async (req , res) => {
-  console.log(req.headers);
 
   if (!req.files){
     throw new Error('No files found');
