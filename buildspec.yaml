@@ -9,7 +9,6 @@ phases:
             - 'npm run build'
             - echo 'Building complete'
 artifacts:
-    type: zip
     files:
         - package.json
         - package-lock.json
