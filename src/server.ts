@@ -1,10 +1,11 @@
 import express, { Request, Response } from 'express';
 import fileUpload, { UploadedFile } from 'express-fileupload';
 import cors from 'cors';
-import { csvWriter, parseHtmlFile } from './parser';
+import { parseHtmlFile } from './parser';
 import { Details } from './script';
 import { uploadToS3 } from './aws';
 import asyncHandler from 'express-async-handler';
+import { createObjectCsvWriter } from 'csv-writer';
 
 const s3BucketUrl = 'https://extracted-cv-csv-files.s3.eu-west-2.amazonaws.com';
 
@@ -34,6 +35,19 @@ app.post('/upload', asyncHandler(async (req , res) => {
     const data = parseHtmlFile(file, pathName);
     records.push(data);
   }
+
+  const csvWriter = createObjectCsvWriter({
+    path: 'output.csv',
+    header: [
+        { id: 'name', title: 'NAME' },
+        { id: 'address', title: 'ADDRESS' },
+        { id: 'phone', title: 'PHONE' },
+        { id: 'email', title: 'EMAIL' },
+        { id: 'qualifications', title: 'QUALIFICATIONS' },
+        { id: 'gcses', title: 'GCSEs' },
+        { id: 'path', title: 'PATH' }
+    ]
+  });
 
   await csvWriter.writeRecords(records);
   
